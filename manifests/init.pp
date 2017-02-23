@@ -50,9 +50,10 @@
 # Copyright 2013 EvenUp.
 #
 class sssd (
-  String $package_ensure              = 'latest',
-  Boolean $disable_name_service       = false,
-  Hash $configs                       = $sssd::params::configs,
+  String $package_ensure                = 'latest',
+  Variant[String, Array] $package_name  = $sssd::params::package_name,
+  Array $extra_packages                 = $sssd::params::extra_packages,
+  Hash $configs                         = $sssd::params::configs,
 ) inherits sssd::params {
 
   # Containment

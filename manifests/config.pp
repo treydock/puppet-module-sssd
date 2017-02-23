@@ -13,10 +13,7 @@
 # Copyright 2013 EvenUp.
 #
 class sssd::config {
-
-  if $caller_module_name != $module_name {
-    fail("Use of private class ${name} by ${caller_module_name}")
-  }
+  assert_private()
 
   $configs = $sssd::configs
 

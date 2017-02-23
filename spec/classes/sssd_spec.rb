@@ -26,9 +26,72 @@ describe 'sssd' do
       it { should contain_anchor('sssd::begin').that_comes_before('Class[sssd::install]') }
       it { should contain_anchor('sssd::end') }
 
-      it_behaves_like 'sssd::install'
-      it_behaves_like 'sssd::config'
-      it_behaves_like 'sssd::service'
+      context 'sssd::install' do
+        it { should contain_package('sssd').with_ensure('latest').with_notify('Service[sssd]') }
+        it { should contain_package('sssd-tools').with_ensure('latest').without_notify }
+
+        context "when package_ensure => 'present'" do
+          let(:params) {{ :package_ensure => 'present' }}
+
+          it { should contain_package('sssd').with_ensure('present') }
+          it { should contain_package('sssd-tools').with_ensure('present') }
+        end
+      end
+
+      context 'sssd::config' do
+        it do
+          should contain_file('/etc/sssd/sssd.conf').with({
+            'ensure'  => 'file',
+            'owner'   => 'root',
+            'group'   => 'root',
+            'mode'    => '0600',
+            'notify'  => 'Service[sssd]',
+          })
+        end
+
+        it do
+          content = catalogue.resource('file', '/etc/sssd/sssd.conf').send(:parameters)[:content]
+          content.split("\n").reject { |c| c =~ /(^#|^$)/ }.should == []
+        end
+
+        context 'with configs defined' do
+          let(:params) {{
+            :configs => {
+              'domain/LDAP' => {
+                'auth_provider' => 'ldap',
+                'id_provider' => 'ldap',
+              },
+              'sssd' => {
+                'domains' => 'LDAP',
+                'services' => ['nss','pam'],
+              },
+            }
+          }}
+
+          it do
+            content = catalogue.resource('file', '/etc/sssd/sssd.conf').send(:parameters)[:content]
+            content.split("\n").reject { |c| c =~ /(^#|^$)/ }.should == [
+              '[domain/LDAP]',
+              'auth_provider = ldap',
+              'id_provider = ldap',
+              '[sssd]',
+              'domains = LDAP',
+              'services = nss, pam',
+            ]
+          end
+        end
+      end
+
+      context 'sssd::service' do
+        it do
+          should contain_service('sssd').with({
+            'ensure'      => 'running',
+            'enable'      => 'true',
+            'hasstatus'   => 'true',
+            'hasrestart'  => 'true',
+          })
+        end
+      end
 
     end
   end

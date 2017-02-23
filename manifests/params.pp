@@ -22,7 +22,8 @@ class sssd::params {
 
   case $::osfamily {
     'RedHat': {
-      $name_service     = 'nslcd'
+      $package_name   = 'sssd'
+      $extra_packages = ['sssd-tools']
     }
 
     default: {

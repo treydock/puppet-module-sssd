@@ -13,22 +13,14 @@
 # Copyright 2013 EvenUp.
 #
 class sssd::install {
+  assert_private()
 
-  if $caller_module_name != $module_name {
-    fail("Use of private class ${name} by ${caller_module_name}")
-  }
-
-  package { 'sssd':
+  package { $sssd::package_name:
     ensure => $sssd::package_ensure,
-    notify => Service['sssd'],
+    notify => Service['sssd']
   }
 
-  package { 'sssd-client':
-    ensure => $sssd::package_ensure,
-    notify => Service['sssd'],
-  }
-
-  package { 'sssd-tools':
+  package { $sssd::extra_packages:
     ensure => $sssd::package_ensure,
   }
 
