@@ -1,9 +1,5 @@
 ## treydock-sssd changelog
 
-Release notes for the treydock-sssd module.
+## [0.0.1](https://github.com/treydock/puppet-module-sssd/tree/0.0.1) (2018-12-21)
 
-------------------------------------------
-
-#### 0.0.1 - 2017-02-23
-
-* Initial release
+Initial release
