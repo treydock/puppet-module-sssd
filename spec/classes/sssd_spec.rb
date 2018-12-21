@@ -21,10 +21,7 @@ describe 'sssd' do
 
       it { should contain_class('sssd::install').that_comes_before('Class[sssd::config]') }
       it { should contain_class('sssd::config').that_comes_before('Class[sssd::service]') }
-      it { should contain_class('sssd::service').that_comes_before('Anchor[sssd::end]') }
-
-      it { should contain_anchor('sssd::begin').that_comes_before('Class[sssd::install]') }
-      it { should contain_anchor('sssd::end') }
+      it { should contain_class('sssd::service') }
 
       context 'sssd::install' do
         it { should contain_package('sssd').with_ensure('latest').with_notify('Service[sssd]') }
@@ -40,6 +37,19 @@ describe 'sssd' do
 
       context 'sssd::config' do
         it do
+          should contain_file('/etc/sssd').with({
+            'ensure'  => 'directory',
+            'owner'   => 'root',
+            'group'   => 'root',
+            'mode'    => '0700',
+            'recurse' => 'true',
+            'purge'   => 'true',
+            'force'   => 'true',
+            'notify'  => 'Service[sssd]',
+          })
+        end
+
+        it do
           should contain_file('/etc/sssd/sssd.conf').with({
             'ensure'  => 'file',
             'owner'   => 'root',
@@ -52,6 +62,19 @@ describe 'sssd' do
         it do
           content = catalogue.resource('file', '/etc/sssd/sssd.conf').send(:parameters)[:content]
           content.split("\n").reject { |c| c =~ /(^#|^$)/ }.should == []
+        end
+
+        it do
+          should contain_file('/etc/sssd/conf.d').with({
+            'ensure'  => 'directory',
+            'owner'   => 'root',
+            'group'   => 'root',
+            'mode'    => '0755',
+            'recurse' => 'true',
+            'purge'   => 'true',
+            'force'   => 'true',
+            'notify'  => 'Service[sssd]',
+          })
         end
 
         context 'with configs defined' do

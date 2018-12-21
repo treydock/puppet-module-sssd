@@ -1,17 +1,4 @@
-# == Class: sssd::install
-#
-# This class installs sssd.  It is not intended to be called directly.
-#
-#
-# === Authors
-#
-# * Justin Lambert <mailto:jlambert@letsevenup.com>
-#
-#
-# === Copyright
-#
-# Copyright 2013 EvenUp.
-#
+# @api private
 class sssd::install {
   assert_private()
 

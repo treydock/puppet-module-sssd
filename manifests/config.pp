@@ -1,21 +1,23 @@
-# == Class: sssd::config
-#
-# This class configures sssd.  It is not intended to be called directly.
-#
-#
-# === Authors
-#
-# * Justin Lambert <mailto:jlambert@letsevenup.com>
-#
-#
-# === Copyright
-#
-# Copyright 2013 EvenUp.
-#
+# @api private
 class sssd::config {
   assert_private()
 
-  $configs = $sssd::configs
+  if $sssd::configs_merge {
+    $configs = lookup('sssd::configs', Hash, 'deep', {})
+  } else {
+    $configs = $sssd::configs
+  }
+
+  file { '/etc/sssd':
+    ensure  => 'directory',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0700',
+    recurse => true,
+    purge   => true,
+    force   => true,
+    notify  => Service['sssd'],
+  }
 
   file { '/etc/sssd/sssd.conf':
     ensure  => 'file',
@@ -23,7 +25,18 @@ class sssd::config {
     group   => 'root',
     mode    => '0600',
     notify  => Service['sssd'],
-    content => template($sssd::params::config_template),
+    content => template('sssd/sssd.conf.erb'),
+  }
+
+  file { '/etc/sssd/conf.d':
+    ensure  => 'directory',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+    recurse => true,
+    purge   => true,
+    force   => true,
+    notify  => Service['sssd'],
   }
 
 }

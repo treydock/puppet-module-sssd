@@ -1,6 +1,24 @@
-spec/fixtures/modules
-spec/fixtures/manifests
-pkg/*
-Vagrantfile
+# IDE related
+.idea/
+.project/
+
+# Testing and development
 .vagrant/
+spec/fixtures/modules/
+.rspec_system/
+/Vagrantfile
+
+# Ruby and RVM
+.ruby-version
+.rvmrc
+
+# Bundler
 Gemfile.lock
+.bundle/
+
+# Puppet module generated
+pkg/
+doc/
+log/
+.yardoc/
+.DS_Store

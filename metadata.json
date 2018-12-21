@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "author": "treydock",
   "summary": "sssd Puppet module",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "source": "git://github.com/treydock/puppet-module-sssd.git",
   "issues_url": "https://github.com/treydock/puppet-module-sssd/issues",
   "project_page": "https://github.com/treydock/puppet-module-sssd",
@@ -22,7 +22,10 @@
     }
   ],
   "dependencies": [
-    { "name": "puppetlabs/stdlib", "version_range": ">= 4.6.0 <5.0.0" }
+    { "name": "puppetlabs/stdlib", "version_requirement": ">= 4.6.0 <6.0.0" }
+  ],
+  "requirements": [
+    { "name": "puppet", "version_requirement": ">= 5.0.0 < 7.0.0" }
   ]
 }
 
