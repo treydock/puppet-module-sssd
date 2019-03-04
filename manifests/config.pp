@@ -20,12 +20,13 @@ class sssd::config {
   }
 
   file { '/etc/sssd/sssd.conf':
-    ensure  => 'file',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0600',
-    notify  => Service['sssd'],
-    content => template('sssd/sssd.conf.erb'),
+    ensure    => 'file',
+    owner     => 'root',
+    group     => 'root',
+    mode      => '0600',
+    notify    => Service['sssd'],
+    content   => template('sssd/sssd.conf.erb'),
+    show_diff => $sssd::show_diff,
   }
 
   file { '/etc/sssd/conf.d':
