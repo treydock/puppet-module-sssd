@@ -51,11 +51,12 @@ describe 'sssd' do
 
         it do
           should contain_file('/etc/sssd/sssd.conf').with({
-            'ensure'  => 'file',
-            'owner'   => 'root',
-            'group'   => 'root',
-            'mode'    => '0600',
-            'notify'  => 'Service[sssd]',
+            'ensure'    => 'file',
+            'owner'     => 'root',
+            'group'     => 'root',
+            'mode'      => '0600',
+            'notify'    => 'Service[sssd]',
+            'show_diff' => 'false',
           })
         end
 

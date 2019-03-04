@@ -13,6 +13,8 @@
 #   Configs hash that defines /etc/sssd/sssd.conf
 # @param configs_merge
 #   Sets if configs hash should be merged from Hiera
+# @param show_diff
+#   Boolean that determines if files should support showing diff
 #
 class sssd (
   String $package_ensure                = 'latest',
@@ -20,6 +22,7 @@ class sssd (
   Array $extra_packages                 = $sssd::params::extra_packages,
   Hash $configs                         = $sssd::params::configs,
   Boolean $configs_merge                = false,
+  Boolean $show_diff                    = false,
 ) inherits sssd::params {
 
   contain 'sssd::install'
