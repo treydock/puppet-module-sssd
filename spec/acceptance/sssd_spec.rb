@@ -2,8 +2,8 @@ require 'spec_helper_acceptance'
 
 describe 'sssd class' do
   context 'default parameters' do
-    it 'should run successfully' do
-      pp =<<-EOS
+    it 'runs successfully' do
+      pp = <<-EOS
         class { 'sssd':
           configs => {
             'sssd' => {
@@ -18,21 +18,21 @@ describe 'sssd class' do
         }
       EOS
 
-      apply_manifest(pp, :catch_failures => true)
-      apply_manifest(pp, :catch_changes => true)
+      apply_manifest(pp, catch_failures: true)
+      apply_manifest(pp, catch_changes: true)
     end
 
     describe package('sssd') do
-      it { should be_installed }
+      it { is_expected.to be_installed }
     end
 
     describe package('sssd-client') do
-      it { should be_installed }
+      it { is_expected.to be_installed }
     end
 
     describe service('sssd') do
-      it { should be_enabled }
-      it { should be_running }
+      it { is_expected.to be_enabled }
+      it { is_expected.to be_running }
     end
   end
 end
