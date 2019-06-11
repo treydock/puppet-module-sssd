@@ -25,8 +25,8 @@ class sssd (
   Boolean $show_diff                    = false,
 ) {
 
-  if ! $facts['os']['family'] in ['RedHat'] {
-    fail("Unsupported osfamily: ${facts['os']['family']}, module ${module_name} only support os family RedHat")
+  if ! $facts['os']['family'] in ['RedHat','Debian'] {
+    fail("Unsupported osfamily: ${facts['os']['family']}, module ${module_name} only support os family RedHat and Debian")
   }
 
   contain 'sssd::install'
