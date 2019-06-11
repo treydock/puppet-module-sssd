@@ -13,7 +13,6 @@ describe 'sssd' do
       end
 
       it { is_expected.to create_class('sssd') }
-      it { is_expected.to contain_class('sssd::params') }
 
       it { is_expected.to contain_class('sssd::install').that_comes_before('Class[sssd::config]') }
       it { is_expected.to contain_class('sssd::config').that_comes_before('Class[sssd::service]') }

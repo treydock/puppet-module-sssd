@@ -1,0 +1,3 @@
+sssd::package_name: sssd
+sssd::extra_packages:
+  - sssd-tools

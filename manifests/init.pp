@@ -18,12 +18,16 @@
 #
 class sssd (
   String $package_ensure                = 'latest',
-  Variant[String, Array] $package_name  = $sssd::params::package_name,
-  Array $extra_packages                 = $sssd::params::extra_packages,
-  Hash $configs                         = $sssd::params::configs,
+  Variant[String, Array] $package_name  = 'sssd',
+  Array $extra_packages                 = ['sssd-tools'],
+  Hash $configs                         = {},
   Boolean $configs_merge                = false,
   Boolean $show_diff                    = false,
-) inherits sssd::params {
+) {
+
+  if ! $facts['os']['family'] in ['RedHat'] {
+    fail("Unsupported osfamily: ${facts['os']['family']}, module ${module_name} only support os family RedHat")
+  }
 
   contain 'sssd::install'
   contain 'sssd::config'
