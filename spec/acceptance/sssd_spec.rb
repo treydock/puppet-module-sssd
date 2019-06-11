@@ -9,6 +9,7 @@ describe 'sssd class' do
             'sssd' => {
               'services' => ['nss','pam'],
               'domains' => 'LDAP',
+              'config_file_version' => '2',
             },
             'domain/LDAP' => {
               'id_provider' => 'ldap',
@@ -26,7 +27,7 @@ describe 'sssd class' do
       it { is_expected.to be_installed }
     end
 
-    describe package('sssd-client') do
+    describe package('sssd-tools') do
       it { is_expected.to be_installed }
     end
 
