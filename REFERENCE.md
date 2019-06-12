@@ -13,7 +13,6 @@ _Private Classes_
 
 * `sssd::config`: 
 * `sssd::install`: 
-* `sssd::params`: 
 * `sssd::service`: 
 
 ## Classes
@@ -48,7 +47,7 @@ Data type: `Variant[String, Array]`
 
 Primary sssd package name
 
-Default value: $sssd::params::package_name
+Default value: 'sssd'
 
 ##### `extra_packages`
 
@@ -56,7 +55,7 @@ Data type: `Array`
 
 Additional SSSD packages to install
 
-Default value: $sssd::params::extra_packages
+Default value: ['sssd-tools']
 
 ##### `configs`
 
@@ -64,13 +63,21 @@ Data type: `Hash`
 
 Configs hash that defines /etc/sssd/sssd.conf
 
-Default value: $sssd::params::configs
+Default value: {}
 
 ##### `configs_merge`
 
 Data type: `Boolean`
 
 Sets if configs hash should be merged from Hiera
+
+Default value: `false`
+
+##### `show_diff`
+
+Data type: `Boolean`
+
+Boolean that determines if files should support showing diff
 
 Default value: `false`
 

@@ -8,10 +8,7 @@
 1. [Overview](#overview)
 2. [Usage - Configuration options](#usage)
 3. [Reference - Parameter and detailed reference to all options](#reference)
-4. [Limitations - OS compatibility, etc.](#limitations)
-5. [Development - Guide for contributing to the module](#development)
-6. [TODO](#todo)
-7. [Additional Information](#additional-information)
+4. [Development - Guide for contributing to the module](#development)
 
 ## Overview
 
@@ -71,13 +68,6 @@ sssd::configs:
 
 [http://treydock.github.io/puppet-module-sssd/](http://treydock.github.io/puppet-module-sssd/)
 
-## Limitations
-
-This module has been tested on:
-
-* RedHat 6 x86_64
-* RedHat 7 x86_64
-
 ## Development
 
 ### Testing
@@ -93,14 +83,8 @@ Install gem dependencies
 
 Run unit tests
 
-    bundle exec rake test
+    bundle exec rake spec
 
 If you have Vagrant >= 1.2.0 installed you can run system tests
 
-    bundle exec rake beaker
-
-## TODO
-
-## Further Information
-
-*
+    BEAKER_set=centos-7 bundle exec rake beaker

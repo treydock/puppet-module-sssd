@@ -1,10 +1,10 @@
 {
   "name": "treydock-sssd",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": "treydock",
   "summary": "sssd Puppet module",
   "license": "Apache-2.0",
-  "source": "git://github.com/treydock/puppet-module-sssd.git",
+  "source": "https://github.com/treydock/puppet-module-sssd",
   "project_page": "https://github.com/treydock/puppet-module-sssd",
   "issues_url": "https://github.com/treydock/puppet-module-sssd/issues",
   "dependencies": [
