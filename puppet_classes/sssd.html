@@ -6,7 +6,7 @@
 <title>
   Puppet Class: sssd
   
-    &mdash; Documentation by YARD 0.9.16
+    &mdash; Documentation by YARD 0.9.19
   
 </title>
 
@@ -61,11 +61,6 @@
 
       <div id="content"><h1>Puppet Class: sssd</h1>
 <div class="box_info">
-  
-  <dl>
-    <dt>Inherits:</dt>
-    <dd><span class='object_link'><a href="sssd_3A_3Aparams.html" title="puppet_classes::sssd::params (puppet_class)">sssd::params</a></span></dd>
-  </dl>
   
   
   <dl>
@@ -125,7 +120,7 @@
         <span class='type'>(<tt>Variant[String, Array]</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>$sssd::params::package_name</tt>)</em>
+        <em class="default">(defaults to: <tt>&#39;sssd&#39;</tt>)</em>
       
       
         &mdash;
@@ -143,7 +138,7 @@
         <span class='type'>(<tt>Array</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>$sssd::params::extra_packages</tt>)</em>
+        <em class="default">(defaults to: <tt>[&#39;sssd-tools&#39;]</tt>)</em>
       
       
         &mdash;
@@ -161,7 +156,7 @@
         <span class='type'>(<tt>Hash</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>$sssd::params::configs</tt>)</em>
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
       
       
         &mdash;
@@ -189,6 +184,24 @@
       
     </li>
   
+    <li>
+      
+        <span class='name'>show_diff</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Boolean that determines if files should support showing diff</p>
+</div>
+      
+    </li>
+  
 </ul>
 
 
@@ -199,8 +212,6 @@
         <pre class="lines">
 
 
-17
-18
 19
 20
 21
@@ -215,18 +226,30 @@
 30
 31
 32
-33</pre>
+33
+34
+35
+36
+37
+38
+39
+40</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 17</span>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 19</span>
 
 class sssd (
   String $package_ensure                = &#39;latest&#39;,
-  Variant[String, Array] $package_name  = $sssd::params::package_name,
-  Array $extra_packages                 = $sssd::params::extra_packages,
-  Hash $configs                         = $sssd::params::configs,
+  Variant[String, Array] $package_name  = &#39;sssd&#39;,
+  Array $extra_packages                 = [&#39;sssd-tools&#39;],
+  Hash $configs                         = {},
   Boolean $configs_merge                = false,
-) inherits sssd::params {
+  Boolean $show_diff                    = false,
+) {
+
+  if ! $facts[&#39;os&#39;][&#39;family&#39;] in [&#39;RedHat&#39;,&#39;Debian&#39;] {
+    fail(&quot;Unsupported osfamily: ${facts[&#39;os&#39;][&#39;family&#39;]}, module ${module_name} only support os family RedHat and Debian&quot;)
+  }
 
   contain &#39;sssd::install&#39;
   contain &#39;sssd::config&#39;
