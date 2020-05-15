@@ -25,6 +25,10 @@
       collection: puppet5
     - set: debian-9
       collection: puppet6
+    - set: debian-10
+      collection: puppet5
+    - set: debian-10
+      collection: puppet6
     - set: ubuntu-1604
       collection: puppet5
     - set: ubuntu-1604
