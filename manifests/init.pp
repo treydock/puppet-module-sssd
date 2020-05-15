@@ -25,7 +25,7 @@ class sssd (
   Boolean $show_diff                    = false,
 ) {
 
-  if ! $facts['os']['family'] in ['RedHat','Debian'] {
+  if ! ($facts['os']['family'] in ['RedHat','Debian']) {
     fail("Unsupported osfamily: ${facts['os']['family']}, module ${module_name} only support os family RedHat and Debian")
   }
 
