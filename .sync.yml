@@ -5,6 +5,10 @@
   docker_defaults:
     dist: xenial
   docker_sets:
+    - set: centos-8
+      collection: puppet5
+    - set: centos-8
+      collection: puppet6
     - set: centos-7
       collection: puppet5
     - set: centos-7
@@ -20,6 +24,10 @@
     - set: debian-9
       collection: puppet5
     - set: debian-9
+      collection: puppet6
+    - set: debian-10
+      collection: puppet5
+    - set: debian-10
       collection: puppet6
     - set: ubuntu-1604
       collection: puppet5
