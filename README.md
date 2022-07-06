@@ -1,14 +1,13 @@
 # puppet-module-sssd
 
 [![Puppet Forge](http://img.shields.io/puppetforge/v/treydock/sssd.svg)](https://forge.puppetlabs.com/treydock/sssd)
-[![Build Status](https://travis-ci.org/treydock/puppet-module-sssd.png)](https://travis-ci.org/treydock/puppet-module-sssd)
+[![CI Status](https://github.com/treydock/puppet-module-sssd/workflows/CI/badge.svg?branch=master)](https://github.com/treydock/puppet-module-sssd/actions?query=workflow%3ACI)
 
 #### Table of Contents
 
 1. [Overview](#overview)
 2. [Usage - Configuration options](#usage)
 3. [Reference - Parameter and detailed reference to all options](#reference)
-4. [Development - Guide for contributing to the module](#development)
 
 ## Overview
 
@@ -67,24 +66,3 @@ sssd::configs:
 ## Reference
 
 [http://treydock.github.io/puppet-module-sssd/](http://treydock.github.io/puppet-module-sssd/)
-
-## Development
-
-### Testing
-
-Testing requires the following dependencies:
-
-* rake
-* bundler
-
-Install gem dependencies
-
-    bundle install
-
-Run unit tests
-
-    bundle exec rake spec
-
-If you have Vagrant >= 1.2.0 installed you can run system tests
-
-    BEAKER_set=centos-7 bundle exec rake beaker
